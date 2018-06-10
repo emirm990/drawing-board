@@ -10,7 +10,7 @@ body{
     padding:10px;
     /*min-width:770px;*/
 }
-#drawing_board div:not(.row){
+.clickable{
     border:1px dotted grey;
     display:inline-block;
     z-index:100;
@@ -28,7 +28,4 @@ input{
     color:transparent;
     width:15px;
     height:15px;
-}
-iFramePlace{
-    width:100%;
 }
