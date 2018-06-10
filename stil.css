@@ -1,0 +1,34 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    text-align:center;
+}
+
+#drawing-board{
+    border:1px solid black;
+    padding:10px;
+    min-width:770px;
+}
+#drawing-board div:not(.row){
+    width:15px;
+    height:15px;
+    border:1px dotted grey;
+    display:inline-block;
+}
+.row{
+    display:block;
+    height:15px;
+    min-width:750px;
+}
+.red{
+    background-color:red;
+}
+input{
+    color:transparent;
+    width:15px;
+    height:15px;
+}
+iFramePlace{
+    width:100%;
+}
