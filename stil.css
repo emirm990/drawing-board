@@ -5,21 +5,21 @@ body{
     text-align:center;
 }
 
-#drawing-board{
+#drawing_board{
     border:1px solid black;
     padding:10px;
-    min-width:770px;
+    /*min-width:770px;*/
 }
-#drawing-board div:not(.row){
-    width:15px;
-    height:15px;
+#drawing_board div:not(.row){
     border:1px dotted grey;
     display:inline-block;
+    z-index:100;
 }
 .row{
     display:block;
     height:15px;
-    min-width:750px;
+    /*min-width:750px;*/
+    z-index: -100;
 }
 .red{
     background-color:red;
