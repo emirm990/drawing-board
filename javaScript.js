@@ -51,4 +51,10 @@ $(document).ready(function(){
         $("main").css("min-width",(xValue*box_size+100)+"px");
         console.log(box_size);
       });
+    $("input[val='circle']").on("click", function(){
+        $(".clickable").css("border-radius", "50%");
+    });
+    $("input[val='square']").on("click", function(){
+        $(".clickable").css("border-radius", "0");
+    });
 });
