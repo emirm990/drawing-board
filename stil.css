@@ -24,7 +24,7 @@ body{
 .red{
     background-color:red;
 }
-input{
+input:not(#color_picker){
     color:transparent;
     width:15px;
     height:15px;

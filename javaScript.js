@@ -13,20 +13,45 @@ $(document).ready(function(){
         $("main").css("min-width",(xValue*box_size+100)+"px");
     };
     function gridMaker(){
-        for(let i=0;i<=yValue;i++){
-            $("#drawing_board").append("<div class='row'> </div>");
+        for(let i=0;i<yValue;i++){
+            $("#drawing_board").append("<div class='row"+i+"'> </div>");
         };
-        for (let j=0;j<=xValue;j++){
-            $(".row").append("<div class='clickable'></div>");
+        for (let j=0;j<yValue;j++){
+            for(let k=0;k<xValue;k++){
+            
+            $(".row"+j).append("<div class='clickable' id='div"+ j+k + "'></div>");
+            //console.log("k: ", k);
+            };   
+        //console.log("j: ", j);
         };
         boxSizing(box_size,xValue);
     };
     gridMaker();
+
+    $("#color_picker").on("change",function(){
+        color=$("#color_picker").val();
+        //console.log(color);
+    });
     $('#colors input').on('click', function(){
         color = $(this).val();
     });
+    
     $("#drawing_board").on('mousedown', ".clickable", function(){
         $(this).css("background-color", color);
+        //testing symetry
+        let clickedDivId = $(this).attr("id");
+        let row=Number($(this).parent().attr("class").slice(3));
+        let divIdNumber = Number(clickedDivId.slice(4));
+        let slicedId=clickedDivId.slice(0,4);
+        if(row>=10){
+            slicedId=clickedDivId.slice(0,5);
+            divIdNumber=Number(clickedDivId.slice(5));}
+        // slicedId+divIdNumber is div id of clicked element
+        let targetId=xValue-1-divIdNumber;
+        console.log("first part: ",slicedId," second part: ",divIdNumber, " target id: ", targetId);
+        if($('#symetryToggle').is(':checked')){
+        $("#"+slicedId+targetId).css("background-color", color);}
+        
     });
     $("#save").on("click", function(){
         html2canvas(document.querySelector("#drawing_board")).then(canvas => {
@@ -40,7 +65,7 @@ $(document).ready(function(){
     });
     $("#box_size").on("change", function(){
         box_size = this.value.slice(0,-2);
-        console.log(box_size);
+        //console.log(box_size);
         boxSizing(box_size,xValue);   
     });
     $('#grid_size').on('change', function() {
@@ -48,10 +73,10 @@ $(document).ready(function(){
         selectValues=this.value.split("x");
         xValue = Number(selectValues[0]);
         yValue = Number(selectValues[1]);
-        console.log(box_size);
+        //console.log(box_size);
         gridMaker();
         boxSizing(box_size,xValue);
-        console.log(box_size);
+        //console.log(box_size);
         if($('#circle').is(':checked')){
             $(".clickable").css("border-radius", "50%");
         }else{
