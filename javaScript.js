@@ -7,14 +7,14 @@ $(document).ready(function(){
     function boxSizing(box_size,xValue){
         $(".clickable").css("height", box_size+"px");
         $(".clickable").css("width", box_size+"px");
-        $(".row").css("height", box_size+"px");
-        $(".row").css("min-width", xValue*box_size+"px");
         $("#drawing_board").css("min-width",(xValue*box_size+50)+"px");
         $("main").css("min-width",(xValue*box_size+100)+"px");
     };
     function gridMaker(){
         for(let i=0;i<yValue;i++){
             $("#drawing_board").append("<div class='row"+i+"'> </div>");
+            $(".row"+i).css("height", box_size+"px");
+            $(".row"+i).css("min-width", xValue*box_size+"px");
         };
         for (let j=0;j<yValue;j++){
             for(let k=0;k<xValue;k++){
@@ -36,8 +36,9 @@ $(document).ready(function(){
         color = $(this).val();
     });
     
-    $("#drawing_board").on('mousedown', ".clickable", function(){
-        
+    $("#drawing_board").on('mousedown touchstart', ".clickable", function(){
+        let down=true;
+        console.log(down);
         $(this).css("background-color", color);
         let row=Number($(this).parent().attr("class").slice(3));
         let clickedClassNumber =$(this).attr("class").slice(10);
@@ -51,7 +52,29 @@ $(document).ready(function(){
         let target=("."+(firstNumber+targetClass));
         if($('#symetryToggle').is(':checked')){
             $(target).last().css("background-color", color);
-        }
+        };    
+        $("#drawing_board").on('mouseup touchend', ".clickable", function(){
+            down=false;
+            console.log(down);
+        });
+        $("#drawing_board").on('mousemove', ".clickable",function(){
+            if(down==true) {
+                $(this).css("background-color", color);
+                let row=Number($(this).parent().attr("class").slice(3));
+                let clickedClassNumber =$(this).attr("class").slice(10);
+                let firstNumber=clickedClassNumber.substring(0,1);
+                let lastNumber=clickedClassNumber.substring(1);
+                if(row>=10){
+                    firstNumber=clickedClassNumber.substring(0,2);
+                    lastNumber=clickedClassNumber.substring(2);
+                }
+                let targetClass=xValue-1-lastNumber;
+                let target=("."+(firstNumber+targetClass));
+                if($('#symetryToggle').is(':checked')){
+                    $(target).last().css("background-color", color);
+                };
+            };  
+        });
     });
     $("#save").on("click", function(){
         html2canvas(document.querySelector("#drawing_board")).then(canvas => {
