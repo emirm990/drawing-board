@@ -19,7 +19,7 @@ $(document).ready(function(){
         for (let j=0;j<yValue;j++){
             for(let k=0;k<xValue;k++){
             
-            $(".row"+j).append("<div class='clickable' id='div"+ j+k + "'></div>");
+            $(".row"+j).append("<div class='clickable "+ j+k + "'></div>");
             //console.log("k: ", k);
             };   
         //console.log("j: ", j);
@@ -37,21 +37,21 @@ $(document).ready(function(){
     });
     
     $("#drawing_board").on('mousedown', ".clickable", function(){
-        $(this).css("background-color", color);
-        //testing symetry
-        let clickedDivId = $(this).attr("id");
-        let row=Number($(this).parent().attr("class").slice(3));
-        let divIdNumber = Number(clickedDivId.slice(4));
-        let slicedId=clickedDivId.slice(0,4);
-        if(row>=10){
-            slicedId=clickedDivId.slice(0,5);
-            divIdNumber=Number(clickedDivId.slice(5));}
-        // slicedId+divIdNumber is div id of clicked element
-        let targetId=xValue-1-divIdNumber;
-        console.log("first part: ",slicedId," second part: ",divIdNumber, " target id: ", targetId);
-        if($('#symetryToggle').is(':checked')){
-        $("#"+slicedId+targetId).css("background-color", color);}
         
+        $(this).css("background-color", color);
+        let row=Number($(this).parent().attr("class").slice(3));
+        let clickedClassNumber =$(this).attr("class").slice(10);
+        let firstNumber=clickedClassNumber.substring(0,1);
+        let lastNumber=clickedClassNumber.substring(1);
+        if(row>=10){
+            firstNumber=clickedClassNumber.substring(0,2);
+            lastNumber=clickedClassNumber.substring(2);
+        }
+        let targetClass=xValue-1-lastNumber;
+        let target=("."+(firstNumber+targetClass));
+        if($('#symetryToggle').is(':checked')){
+            $(target).last().css("background-color", color);
+        }
     });
     $("#save").on("click", function(){
         html2canvas(document.querySelector("#drawing_board")).then(canvas => {
