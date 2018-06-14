@@ -4,6 +4,7 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="stil.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="javaScript.js"></script>
     <script src="html2canvas.js"></script>
@@ -12,10 +13,9 @@
 <body>
     <main>
         <div id="drawing_board">
-
+        
         </div>
         <div id="colors">
-            <br/>
             <input type="button" value="white" style="background-color:white">
             <input type="button" value="black" style="background-color:black ">
             <input type="button" value="red" style="background-color: red">
@@ -34,34 +34,40 @@
                 <input id="color_picker" type="color" value="#cc66ff">
             </div>
         </div>
-        <div>
-            <span>Grid size: </span><select id = "grid_size" name="grid_size">
-                <option value="10x5" selected="selected">10x5</option>
-                <option value="20x10">20x10</option>
-                <option value="30x15">30x15</option>
-                <option value="40x20">40x20</option>
-                <option value="50x25">50x25</option>
-                <option value="70x35">70x35</option>
-                <option value="100x50">100x50</option>
-            </select>
-            <span>Box size: </span><select id= "box_size" name="box_size">
-                <option value="10px" >10px</option>
-                <option value="15px" selected="selected">15px</option>
-                <option value="20px">20px</option>
-                <option value="30px">30px</option>
-            </select>
-            <div>Board type: 
+        <i id="settingsButton" class="fas fa-cog"></i>
+        <div id="settings">
+            <div class="grid-size">
+                <span>Grid size: </span><select id = "grid_size" name="grid_size">
+                    <option value="10x5" selected="selected">10x5</option>
+                    <option value="20x10">20x10</option>
+                    <option value="30x15">30x15</option>
+                    <option value="40x20">40x20</option>
+                    <option value="50x25">50x25</option>
+                    <option value="70x35">70x35</option>
+                    <option value="100x50">100x50</option>
+                </select>
+            </div>
+            <div>
+                <span>Box size: </span><select id= "box_size" name="box_size">
+                    <option value="10px" >10px</option>
+                    <option value="15px" selected="selected">15px</option>
+                    <option value="20px">20px</option>
+                    <option value="30px">30px</option>
+                </select>
+            </div>
+            <div><p>Board type:</p>
                 <input id="square" type="radio" name="type" val="square" checked>Square
                 <input id="circle" type="radio" name="type" val="circle" >Circle
             </div>
-        </div>
+            
         <br/>
         <div>
             <button id="clear">Clear all</button>
             <button id="save">Save</button>
             <button><a id="download" href="" download>Download</a></button>
+            <span>Mirrored: </span><input type="checkbox" id="symetryToggle">
         </div>
-        <span>Mirrored: </span><input type="checkbox" id="symetryToggle">
+    </div>
         <br/>
         <div id="renderedImage">
             <img id="newImg" src="">

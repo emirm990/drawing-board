@@ -9,12 +9,13 @@ $(document).ready(function(){
         $(".clickable").css("width", box_size+"px");
         $("#drawing_board").css("min-width",(xValue*box_size+50)+"px");
         $("main").css("min-width",(xValue*box_size+100)+"px");
+        $('div[class*="row"]').css("height", box_size+"px");
+        $('div[class*="row"]').css("min-width", xValue*box_size+"px");
     };
     function gridMaker(){
         for(let i=0;i<yValue;i++){
             $("#drawing_board").append("<div class='row"+i+"'> </div>");
-            $(".row"+i).css("height", box_size+"px");
-            $(".row"+i).css("min-width", xValue*box_size+"px");
+            
         };
         for (let j=0;j<yValue;j++){
             for(let k=0;k<xValue;k++){
@@ -38,7 +39,7 @@ $(document).ready(function(){
     
     $("#drawing_board").on('mousedown touchstart', ".clickable", function(){
         let down=true;
-        console.log(down);
+        //console.log(down);
         $(this).css("background-color", color);
         let row=Number($(this).parent().attr("class").slice(3));
         let clickedClassNumber =$(this).attr("class").slice(10);
@@ -50,12 +51,17 @@ $(document).ready(function(){
         }
         let targetClass=xValue-1-lastNumber;
         let target=("."+(firstNumber+targetClass));
+        //console.log(row);
         if($('#symetryToggle').is(':checked')){
-            $(target).last().css("background-color", color);
+            if (row<10){
+                $(target).first().css("background-color", color);
+            }else{
+                $(target).last().css("background-color", color);
+            }
         };    
         $("#drawing_board").on('mouseup touchend', ".clickable", function(){
             down=false;
-            console.log(down);
+            //console.log(down);
         });
         $("#drawing_board").on('mousemove', ".clickable",function(){
             if(down==true) {
@@ -71,7 +77,11 @@ $(document).ready(function(){
                 let targetClass=xValue-1-lastNumber;
                 let target=("."+(firstNumber+targetClass));
                 if($('#symetryToggle').is(':checked')){
-                    $(target).last().css("background-color", color);
+                    if(row<10){
+                        $(target).first().css("background-color", color);
+                    }else{
+                        $(target).last().css("background-color", color);
+                    }
                 };
             };  
         });
@@ -112,4 +122,22 @@ $(document).ready(function(){
     $("#square").on("click", function(){
         $(".clickable").css("border-radius", "0");
     });
+    $("#settingsButton").on("click",function(){
+        
+        if($("#settings").css("left")=="0px"){
+            $("#settingsButton").animate({rotation: 0},{
+                duration: 500,
+                step: function(now, fx) {
+                $(this).css({"transform": "rotate("+now+"deg)"});}
+            });
+            $("#settings").animate({left: '-200px'});
+            
+        }else{ 
+            $("#settingsButton").animate({rotation: 360},{
+                duration: 500,
+                step: function(now, fx) {
+                $(this).css({"transform": "rotate("+now+"deg)"});}
+            });
+            $("#settings").animate({left: '0px'});}
+        });
 });
