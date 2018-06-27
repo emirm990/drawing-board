@@ -4,15 +4,18 @@ $(document).ready(function(){
     let selectValues=[10,5];
     let xValue = selectValues[0];
     let yValue = selectValues[1];
+    
     function boxSizing(box_size,xValue){
         $(".clickable").css("height", box_size+"px");
         $(".clickable").css("width", box_size+"px");
         $("#drawing_board").css("min-width",(xValue*box_size+50)+"px");
+        $("#renderedImage").css("min-width",(xValue*box_size+50)+"px");
         $("main").css("min-width",(xValue*box_size+100)+"px");
         $('div[class*="row"]').css("height", box_size+"px");
         $('div[class*="row"]').css("min-width", xValue*box_size+"px");
     };
     function gridMaker(){
+        $("#drawing_board").empty();
         for(let i=0;i<yValue;i++){
             $("#drawing_board").append("<div class='row"+i+"'> </div>"); 
         };
@@ -24,20 +27,24 @@ $(document).ready(function(){
         boxSizing(box_size,xValue);
         
     };
-   
+    
     gridMaker();
   
     $("#color_picker").on("change",function(){
         color=$("#color_picker").val();
-        //console.log(color);
+        
     });
     $('#colors input').on('click', function(){
         color = $(this).val();
+        console.log(color);
+        $("#color_picker").val(color);
+        $("#colors input").css("border-radius","0%");
+        $(this).css("border-radius", "40%");
     });
     
     $("#drawing_board").on('mousedown touchstart', ".clickable", function(){
         let down=true;
-        //console.log(down);
+        
         $(this).css("background-color", color);
         let row=Number($(this).parent().attr("class").slice(3));
         let clickedClassNumber =$(this).attr("class").slice(10);
@@ -49,7 +56,6 @@ $(document).ready(function(){
         }
         let targetClass=xValue-1-lastNumber;
         let target=("."+(firstNumber+targetClass));
-        //console.log(row);
         if($('#symetryToggle').is(':checked')){
             if (row<10){
                 $(target).first().css("background-color", color);
@@ -59,7 +65,6 @@ $(document).ready(function(){
         };    
         $("#drawing_board").on('mouseup touchend', ".clickable", function(){
             down=false;
-            //console.log(down);
         });
         $("#drawing_board").on('mousemove', ".clickable",function(){
             if(down==true) {
@@ -96,18 +101,16 @@ $(document).ready(function(){
     });
     $("#box_size").on("change", function(){
         box_size = this.value.slice(0,-2);
-        //console.log(box_size);
         boxSizing(box_size,xValue);   
     });
     $('#grid_size').on('change', function() {
-        $("#drawing_board").empty();
         selectValues=this.value.split("x");
         xValue = Number(selectValues[0]);
         yValue = Number(selectValues[1]);
-        //console.log(box_size);
+
         gridMaker();
         boxSizing(box_size,xValue);
-        //console.log(box_size);
+
         if($('#circle').is(':checked')){
             $(".clickable").css("border-radius", "50%");
         }else{
@@ -128,7 +131,7 @@ $(document).ready(function(){
                 step: function(now, fx) {
                 $(this).css({"transform": "rotate("+now+"deg)"});}
             });
-            $("#settings").animate({left: '-200px'});
+            $("#settings").animate({left: '-250px'});
             
         }else{ 
             $("#settingsButton").animate({rotation: 360},{
@@ -137,5 +140,5 @@ $(document).ready(function(){
                 $(this).css({"transform": "rotate("+now+"deg)"});}
             });
             $("#settings").animate({left: '0px'});}
-        });
+    });
 });
