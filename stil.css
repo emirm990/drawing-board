@@ -11,6 +11,7 @@ body{
 #drawing_board{
     padding:10px;
     /*min-width:770px;*/
+   
 }
 .clickable{
     border:1px dotted grey;
@@ -38,7 +39,12 @@ input:not(#color_picker){
     z-index:999;
     display:block;
     min-height:100%;
-    
+}
+.clear-save button{
+    width:95px;
+}
+.download button{
+    width:194px;
 }
 #settings p{
     margin:0;
@@ -62,4 +68,7 @@ input:not(#color_picker){
 }
 select{
     width:40%;
+}
+#colors input:hover:not(#color_picker){
+    border-radius: 50%;
 }

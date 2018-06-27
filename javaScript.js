@@ -14,21 +14,19 @@ $(document).ready(function(){
     };
     function gridMaker(){
         for(let i=0;i<yValue;i++){
-            $("#drawing_board").append("<div class='row"+i+"'> </div>");
-            
+            $("#drawing_board").append("<div class='row"+i+"'> </div>"); 
         };
         for (let j=0;j<yValue;j++){
             for(let k=0;k<xValue;k++){
-            
             $(".row"+j).append("<div class='clickable "+ j+k + "'></div>");
-            //console.log("k: ", k);
             };   
-        //console.log("j: ", j);
         };
         boxSizing(box_size,xValue);
+        
     };
+   
     gridMaker();
-
+  
     $("#color_picker").on("change",function(){
         color=$("#color_picker").val();
         //console.log(color);
